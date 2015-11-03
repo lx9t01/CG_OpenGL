@@ -1,6 +1,4 @@
-#include <iostream>
-#include <sstream>
-#include <fstream>
+
 #include "readobj.h"
 
 using namespace std;
@@ -19,7 +17,7 @@ GraphObj::GraphObj(char* s){
     while (!objfile.eof()) {
       objfile >> ch >> x >> y >> z;
       if (ch == "v") {
-        v.push_back(vertex(stof(x), stof(y), stof(z), 1));
+        v.push_back(vertex(stof(x), stof(y), stof(z)));
       } else if (ch == "f") {
           split(x,a1,a2);
           split(y,b1,b2);
@@ -29,7 +27,7 @@ GraphObj::GraphObj(char* s){
 //          cout<<"co: "<<c1<<" "<<c2<<endl;
           f.push_back(face(a1, a2, b1, b2, c1, c2));
       } else if(ch == "vn"){
-          vn.push_back(vertexn(stof(x), stof(y), stof(z), 1));
+          vn.push_back(vertexn(stof(x), stof(y), stof(z)));
       }
         else
         cout << "Fail to read obj line";
@@ -57,7 +55,7 @@ bool GraphObj::readObj(char const* s) {
         while (!objfile.eof()) {
             objfile >> ch >> x >> y >> z;
             if (ch == "v") {
-                v.push_back(vertex(stof(x), stof(y), stof(z), 1));
+                v.push_back(vertex(stof(x), stof(y), stof(z)));
             } else if (ch == "f") {
                 split(x,a1,a2);
                 split(y,b1,b2);
@@ -65,7 +63,7 @@ bool GraphObj::readObj(char const* s) {
                 //cout<<"ao: "<<a1<<" "<<a2<<endl;
                 f.push_back(face(a1, a2, b1, b2, c1, c2));
             } else if(ch == "vn"){
-                vn.push_back(vertexn(stof(x), stof(y), stof(z), 1));
+                vn.push_back(vertexn(stof(x), stof(y), stof(z)));
             }
             else
                 cout << "Fail to read obj line";

@@ -1,10 +1,23 @@
 #pragma once
 #include <string>
 #include <vector>
-#include </usr/local/include/Eigen/Dense>
 #include <stdio.h>
+#include <math.h>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include </usr/local/include/Eigen/Dense>
+#else
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
+#include <Eigen/Dense>
+#endif
 
-using namespace Eigen;
 using namespace std;
 
 
@@ -14,22 +27,20 @@ struct RGB{
 
 
 struct vertex {
-  float x, y, z, w;
-  vertex(float x1, float y1, float z1, float w1) {
+  float x, y, z;
+  vertex(float x1, float y1, float z1) {
     x = x1;
     y = y1;
     z = z1;
-    w = w1;
   }
 };
 
 struct vertexn{
-  float x, y, z, w;
-  vertexn(float x1, float y1, float z1 , float w1) {
+  float x, y, z;
+  vertexn(float x1, float y1, float z1) {
     x = x1;
     y = y1;
     z = z1;
-    w = w1;
   }
 };
 
@@ -52,7 +63,7 @@ struct Point_Light
     float position[4]; //xyzw
     float color[3]; //rgb range?
     float attenuation_k;
-};s
+};
 
 
 struct Transforms
@@ -100,6 +111,8 @@ class GraphObj {
   float specular[3];
   float shininess;
   vector<Transforms> transform_sets;
+  vector<vertex> vertex_buffer;
+  vector<vertexn> vertexN_buffer;
 
 
  private:
@@ -114,30 +127,3 @@ class GraphObj {
     
     
 };
-
-class camera{
-    
-public:
-  Matrix4f setInvC(float cam_p[3], float cam_o[4]);
-  Matrix4f getInvC();
-    
-private:
-  Matrix4f inv_C=Matrix4f::Identity(4,4);
-    
-};
-
-Vector3f lighting(vertex P, vertexn n,
-                  float diffuse[3], float ambient[3], float specular[3], float p,
-                  vertex e, vector<light> lights);
-
-Vector4f NDC2cam(vertex v_ndc, Matrix4f P);
-
-Vector4f cam2world(Vector4f v_cam, Matrix4f P);
-
-float compute_alpha(float xa, float ya, float xb, float yb, float xc, float yc, float x, float y);
-
-float compute_beta(float xa, float ya, float xb, float yb, float xc, float yc, float x, float y);
-
-float compute_gamma(float xa, float ya, float xb, float yb, float xc, float yc, float x, float y);
-
-
