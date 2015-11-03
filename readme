@@ -1,0 +1,11 @@
+readme
+
+OpenGL assignment 3
+
+This assignment is kind of easy, but there are still some points need to be paid attention to: 
+
+1, the center of the object v.s. the origin of the NDC space v.s. the center of the screen
+  Because these three concepts are not the same one, the problem could result in: 
+  1) the rotation speed of the cube varies according to which side faces us and which direction are we trying to rotate it; 
+  2) when click and move from the corner, usually the rotation angle is not satisfactory, especially for the armadillo, which is rotating in the opposite direction. 
+
